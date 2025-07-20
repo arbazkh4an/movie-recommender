@@ -29,6 +29,11 @@ else:
 
 def recommned(movie_name):
     movie_index = movies[movies['title'] == movie_name].index[0]
+    st.write("Similarity keys:", list(similarity.keys())[:10])
+    st.write("Movie index for selected movie:", int(movie_index))
+    if int(movie_index) not in similarity:
+        st.error(f"Index {int(movie_index)} not found in similarity keys: {list(similarity.keys())[:10]} ...")
+        return []
     distances = similarity[int(movie_index)]  # Ensure key is int
     movies_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:6]
     recommended_movies= []
