@@ -9,9 +9,8 @@ movies = pd.DataFrame(movies_dict)
 
 # Download similairty.pkl from Google Drive if not present
 def download_file_from_google_drive(file_id, destination):
-    if not os.path.exists(destination):
-        url = f"https://drive.google.com/uc?id={file_id}"
-        gdown.download(url, destination, quiet=False)
+    url = f"https://drive.google.com/uc?id={file_id}"
+    gdown.download(url, destination, quiet=False, fuzzy=True)
 
 # Download the file before loading
 SIMILARITY_FILE_ID = '1Gu6gzVRUcb2RAnHnKRVBz_V2wVHHn9HZ'
