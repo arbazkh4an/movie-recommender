@@ -1,9 +1,22 @@
 import streamlit as st
 import pickle
 import pandas as pd
+import os
+import gdown
 
 movies_dict = pickle.load(open('movie_dict.pkl', 'rb'))
 movies = pd.DataFrame(movies_dict)
+
+# Download similairty.pkl from Google Drive if not present
+def download_file_from_google_drive(file_id, destination):
+    if not os.path.exists(destination):
+        url = f"https://drive.google.com/uc?id={file_id}"
+        gdown.download(url, destination, quiet=False)
+
+# Download the file before loading
+SIMILARITY_FILE_ID = '1Gu6gzVRUcb2RAnHnKRVBz_V2wVHHn9HZ'
+download_file_from_google_drive(SIMILARITY_FILE_ID, 'similairty.pkl')
+
 similarity = pickle.load(open('similairty.pkl', 'rb'))
 
 def recommned(movie_name):
