@@ -28,14 +28,14 @@ else:
 
 def recommned(movie_name):
     movie_index = movies[movies['title'] == movie_name].index[0]
-    # Debug info
-    if hasattr(similarity, "keys"):
-        st.write("Similarity keys:", list(similarity.keys())[:10])
-    elif hasattr(similarity, "shape"):
-        st.write("Similarity shape:", similarity.shape)
-    else:
-        st.write("Similarity type:", type(similarity))
-    st.write("Movie index for selected movie:", int(movie_index))
+    # Debug info removed
+    # if hasattr(similarity, "keys"):
+    #     st.write("Similarity keys:", list(similarity.keys())[:10])
+    # elif hasattr(similarity, "shape"):
+    #     st.write("Similarity shape:", similarity.shape)
+    # else:
+    #     st.write("Similarity type:", type(similarity))
+    # st.write("Movie index for selected movie:", int(movie_index))
     # Defensive check for dicts
     if hasattr(similarity, "keys") and int(movie_index) not in similarity:
         st.error(f"Index {int(movie_index)} not found in similarity keys: {list(similarity.keys())[:10]} ...")
