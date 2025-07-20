@@ -28,12 +28,19 @@ else:
 
 def recommned(movie_name):
     movie_index = movies[movies['title'] == movie_name].index[0]
-    st.write("Similarity keys:", list(similarity.keys())[:10])
+    # Debug info
+    if hasattr(similarity, "keys"):
+        st.write("Similarity keys:", list(similarity.keys())[:10])
+    elif hasattr(similarity, "shape"):
+        st.write("Similarity shape:", similarity.shape)
+    else:
+        st.write("Similarity type:", type(similarity))
     st.write("Movie index for selected movie:", int(movie_index))
-    if int(movie_index) not in similarity:
+    # Defensive check for dicts
+    if hasattr(similarity, "keys") and int(movie_index) not in similarity:
         st.error(f"Index {int(movie_index)} not found in similarity keys: {list(similarity.keys())[:10]} ...")
         return []
-    distances = similarity[int(movie_index)]  # Ensure key is int
+    distances = similarity[int(movie_index)]
     movies_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:6]
     recommended_movies= []
     for i in movies_list:
