@@ -17,7 +17,15 @@ def download_file_from_google_drive(file_id, destination):
 SIMILARITY_FILE_ID = '1Gu6gzVRUcb2RAnHnKRVBz_V2wVHHn9HZ'
 download_file_from_google_drive(SIMILARITY_FILE_ID, 'similairty.pkl')
 
-similarity = pickle.load(open('similairty.pkl', 'rb'))
+if not os.path.exists('similairty.pkl'):
+    st.error("similairty.pkl not found! Please check the download link or permissions.")
+    st.stop()
+else:
+    try:
+        similarity = pickle.load(open('similairty.pkl', 'rb'))
+    except Exception as e:
+        st.error(f"Failed to load similairty.pkl: {e}")
+        st.stop()
 
 def recommned(movie_name):
     movie_index = movies[movies['title'] == movie_name].index[0]
